@@ -1,0 +1,574 @@
+{
+    "templateId": "Boutolin medication",
+    "version": "2.3",
+    "defaultLanguage": "en",
+    "languages": [
+        "en"
+    ],
+    "tree": {
+        "id": "boutolin_medication",
+        "name": "Boutolin medication",
+        "localizedName": "Boutolin medication",
+        "rmType": "COMPOSITION",
+        "nodeId": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "min": 1,
+        "max": 1,
+        "localizedNames": {
+            "en": "Boutolin medication"
+        },
+        "localizedDescriptions": {
+            "en": "Interaction, contact or care event between a subject of care and healthcare provider(s)."
+        },
+        "aqlPath": "",
+        "children": [
+            {
+                "id": "category",
+                "name": "category",
+                "localizedName": "category",
+                "rmType": "DV_CODED_TEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/category",
+                "inputs": [
+                    {
+                        "suffix": "code",
+                        "type": "CODED_TEXT",
+                        "list": [
+                            {
+                                "value": "433",
+                                "label": "event",
+                                "localizedLabels": {
+                                    "en": "event"
+                                }
+                            }
+                        ],
+                        "terminology": "openehr"
+                    }
+                ],
+                "inContext": true
+            },
+            {
+                "id": "context",
+                "name": "context",
+                "localizedName": "context",
+                "rmType": "EVENT_CONTEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/context",
+                "children": [
+                    {
+                        "id": "start_time",
+                        "name": "start_time",
+                        "rmType": "DV_DATE_TIME",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/context/start_time",
+                        "inputs": [
+                            {
+                                "type": "DATETIME"
+                            }
+                        ],
+                        "inContext": true
+                    },
+                    {
+                        "id": "setting",
+                        "name": "setting",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/context/setting",
+                        "inputs": [
+                            {
+                                "suffix": "code",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "value",
+                                "type": "TEXT"
+                            }
+                        ],
+                        "inContext": true
+                    }
+                ]
+            },
+            {
+                "id": "medication_order",
+                "name": "Medication order",
+                "localizedName": "Medication order",
+                "rmType": "INSTRUCTION",
+                "nodeId": "openEHR-EHR-INSTRUCTION.medication_order.v2",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Medication order"
+                },
+                "localizedDescriptions": {
+                    "en": "An order for a medication, vaccine, nutritional product or other therapeutic item for an identified individual."
+                },
+                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]",
+                "children": [
+                    {
+                        "id": "order",
+                        "name": "Order",
+                        "localizedName": "Order",
+                        "rmType": "ACTIVITY",
+                        "nodeId": "at0001",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Order"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Details of the requested order."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]",
+                        "children": [
+                            {
+                                "id": "medication_item",
+                                "name": "Medication item",
+                                "localizedName": "Medication item",
+                                "rmType": "DV_TEXT",
+                                "min": 1,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Medication item"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Name of the medication, vaccine or other therapeutic/prescribable item being ordered."
+                                },
+                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[at0070]/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "Depending on the prescribing context this field could be used for either generic- or product-based prescribing. This data field can be used to record tightly bound orders of different medications when they are prescribed as a single pack. It is strongly recommended that the 'Medication item' be coded with a terminology capable of triggering decision support, where possible. The extent of coding may vary from the simple name of the medication item through to structured details about the actual medication pack to be used. Free text entry should only be used if there is no appropriate terminology available."
+                                }
+                            },
+                            {
+                                "id": "route",
+                                "name": "Route",
+                                "localizedName": "Route",
+                                "rmType": "DV_TEXT",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Route"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "The route by which the ordered item is to be administered into the subject's body."
+                                },
+                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[at0091]/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "For example: 'oral', 'intravenous', or 'topical'.\r\nCoding of the route with a terminology is preferred, where possible. Multiple potential routes may be specified."
+                                }
+                            },
+                            {
+                                "id": "anatomical_location",
+                                "name": "Anatomical location",
+                                "localizedName": "Anatomical location",
+                                "rmType": "CLUSTER",
+                                "nodeId": "openEHR-EHR-CLUSTER.anatomical_location.v1",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Anatomical location"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "A physical site on or within the human body."
+                                },
+                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
+                                "children": [
+                                    {
+                                        "id": "body_site_name",
+                                        "name": "Body site name",
+                                        "localizedName": "Body site name",
+                                        "rmType": "DV_TEXT",
+                                        "min": 1,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Body site name"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Identification of a single physical site either on, or within, the human body."
+                                        },
+                                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]/value",
+                                        "inputs": [
+                                            {
+                                                "type": "TEXT"
+                                            }
+                                        ],
+                                        "annotations": {
+                                            "comment": "This data element is the only mandated data point in this archetype and should be used as the primary data point to record an anatomical location with a commonly used name. It is strongly recommended that 'Body site name' be recorded as specifically as is anatomically possible. For example: record 'upper eyelid' rather than recording 'eyelid' with 'upper' as a qualifier; 'fifth rib' rather than 'rib' with a numeric qualifier. Use the other data elements for laterality, aspect, region and anatomical line to provide more detail.\r\n\r\nThis data element should be coded with a terminology capable of triggering decision support, where possible - an appropriate termset for use here could comprise individual concepts or a list of precoordinated terms. Free text should be used only if there is no appropriate terminology available.\r\n\r\nIf body site name is already identified in the parent archetype, then this data element may be redundant. Alternatively, a use case has been identified where the value may be duplicated into this element to support semantic querying using this archetype, rather than the data element within the parent."
+                                        }
+                                    },
+                                    {
+                                        "id": "precise_anatomical_location",
+                                        "name": "Precise anatomical location",
+                                        "localizedName": "Precise anatomical location",
+                                        "rmType": "CLUSTER",
+                                        "nodeId": "openEHR-EHR-CLUSTER.anatomical_location_precise.v0",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Precise anatomical location"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Record details about precise anatomical location of a specimen or body part, including coordinates."
+                                        },
+                                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[openEHR-EHR-CLUSTER.anatomical_location_precise.v0]",
+                                        "children": [
+                                            {
+                                                "id": "x_offset",
+                                                "name": "X offset",
+                                                "localizedName": "X offset",
+                                                "rmType": "DV_QUANTITY",
+                                                "min": 0,
+                                                "max": 1,
+                                                "localizedNames": {
+                                                    "en": "X offset"
+                                                },
+                                                "localizedDescriptions": {
+                                                    "en": "Location of object (nominal center) relative to the Position Frame Reference. Distance can be given in SI units or pixels. of ({pixel}, UCUM, “Pixels”)."
+                                                },
+                                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[openEHR-EHR-CLUSTER.anatomical_location_precise.v0]/items[at0002]/value",
+                                                "inputs": [
+                                                    {
+                                                        "suffix": "magnitude",
+                                                        "type": "DECIMAL"
+                                                    },
+                                                    {
+                                                        "suffix": "unit",
+                                                        "type": "CODED_TEXT",
+                                                        "list": [
+                                                            {
+                                                                "value": "1",
+                                                                "label": "1"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "id": "y_offset",
+                                                "name": "Y offset",
+                                                "localizedName": "Y offset",
+                                                "rmType": "DV_QUANTITY",
+                                                "min": 0,
+                                                "max": 1,
+                                                "localizedNames": {
+                                                    "en": "Y offset"
+                                                },
+                                                "localizedDescriptions": {
+                                                    "en": "Location of object (nominal center) relative to the Position Frame Reference. Distance can be given in SI units or pixels. of ({pixel}, UCUM, “Pixels”)."
+                                                },
+                                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[openEHR-EHR-CLUSTER.anatomical_location_precise.v0]/items[at0003]/value",
+                                                "inputs": [
+                                                    {
+                                                        "suffix": "magnitude",
+                                                        "type": "DECIMAL"
+                                                    },
+                                                    {
+                                                        "suffix": "unit",
+                                                        "type": "CODED_TEXT",
+                                                        "list": [
+                                                            {
+                                                                "value": "1",
+                                                                "label": "1"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "therapeutic_direction",
+                                "name": "Therapeutic direction",
+                                "localizedName": "Therapeutic direction",
+                                "rmType": "CLUSTER",
+                                "nodeId": "openEHR-EHR-CLUSTER.therapeutic_direction.v1",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Therapeutic direction"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Structured details of a single therapeutic direction for an ordered item, such as a medication or blood transfusion order."
+                                },
+                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.therapeutic_direction.v1]",
+                                "children": [
+                                    {
+                                        "id": "dosage",
+                                        "name": "Dosage",
+                                        "localizedName": "Dosage",
+                                        "rmType": "CLUSTER",
+                                        "nodeId": "openEHR-EHR-CLUSTER.dosage.v1",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Dosage"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "The combination of a medication amount and administration timing for a single day, in the context of a medication order or medication management."
+                                        },
+                                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.therapeutic_direction.v1]/items[openEHR-EHR-CLUSTER.dosage.v1]",
+                                        "children": [
+                                            {
+                                                "id": "dose_amount",
+                                                "name": "Dose amount",
+                                                "localizedName": "Dose amount",
+                                                "rmType": "DV_QUANTITY",
+                                                "min": 0,
+                                                "max": 1,
+                                                "localizedNames": {
+                                                    "en": "Dose amount"
+                                                },
+                                                "localizedDescriptions": {
+                                                    "en": "The value of the amount of medication administered at one time, as a real number, or range of real numbers, and associated with the Dose unit."
+                                                },
+                                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.therapeutic_direction.v1]/items[openEHR-EHR-CLUSTER.dosage.v1]/items[at0144]/value",
+                                                "inputs": [
+                                                    {
+                                                        "suffix": "magnitude",
+                                                        "type": "DECIMAL",
+                                                        "validation": {
+                                                            "precision": {
+                                                                "min": 3,
+                                                                "minOp": ">=",
+                                                                "max": 3,
+                                                                "maxOp": "<="
+                                                            },
+                                                            "range": {
+                                                                "min": 0,
+                                                                "minOp": ">="
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "suffix": "unit",
+                                                        "type": "CODED_TEXT",
+                                                        "list": [
+                                                            {
+                                                                "value": "1",
+                                                                "label": "1",
+                                                                "validation": {
+                                                                    "precision": {
+                                                                        "min": 3,
+                                                                        "minOp": ">=",
+                                                                        "max": 3,
+                                                                        "maxOp": "<="
+                                                                    },
+                                                                    "range": {
+                                                                        "min": 0,
+                                                                        "minOp": ">="
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "annotations": {
+                                                    "comment": "For example: 1, 1.5, 0.125 or 1-2, 12.5-20.5"
+                                                }
+                                            },
+                                            {
+                                                "id": "dose_unit",
+                                                "name": "Dose unit",
+                                                "localizedName": "Dose unit",
+                                                "rmType": "DV_CODED_TEXT",
+                                                "min": 0,
+                                                "max": 1,
+                                                "localizedNames": {
+                                                    "en": "Dose unit"
+                                                },
+                                                "localizedDescriptions": {
+                                                    "en": "The unit which is associated with the Dose amount."
+                                                },
+                                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.therapeutic_direction.v1]/items[openEHR-EHR-CLUSTER.dosage.v1]/items[at0145]/value",
+                                                "inputs": [
+                                                    {
+                                                        "suffix": "value",
+                                                        "type": "TEXT"
+                                                    },
+                                                    {
+                                                        "suffix": "code",
+                                                        "type": "TEXT"
+                                                    }
+                                                ],
+                                                "annotations": {
+                                                    "comment": "For example: 'tablet','mg'. Coding of the dose unit with a terminology is preferred, where possible."
+                                                }
+                                            }
+                                        ],
+                                        "annotations": {
+                                            "comment": "For example: '2 tablets at 6pm' or '20mg three times per day'. Please note: this cluster allows multiple occurrences to enable representation of a complete set of dose patterns for a single dose direction."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "timing",
+                                "name": "timing",
+                                "rmType": "DV_PARSABLE",
+                                "min": 0,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/timing",
+                                "inputs": [
+                                    {
+                                        "suffix": "value",
+                                        "type": "TEXT"
+                                    },
+                                    {
+                                        "suffix": "formalism",
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "inContext": true
+                            },
+                            {
+                                "id": "action_archetype_id",
+                                "name": "action_archetype_id",
+                                "rmType": "STRING",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/action_archetype_id",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "subject",
+                        "name": "subject",
+                        "rmType": "PARTY_PROXY",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/subject",
+                        "inputs": [
+                            {
+                                "suffix": "id",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "id_scheme",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "id_namespace",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "name",
+                                "type": "TEXT"
+                            }
+                        ],
+                        "inContext": true
+                    },
+                    {
+                        "id": "narrative",
+                        "name": "narrative",
+                        "rmType": "DV_TEXT",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/narrative",
+                        "inputs": [
+                            {
+                                "type": "TEXT"
+                            }
+                        ],
+                        "inContext": true
+                    },
+                    {
+                        "id": "language",
+                        "name": "language",
+                        "rmType": "CODE_PHRASE",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/language",
+                        "inContext": true
+                    },
+                    {
+                        "id": "encoding",
+                        "name": "encoding",
+                        "rmType": "CODE_PHRASE",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/encoding",
+                        "inContext": true
+                    },
+                    {
+                        "id": "expiry_time",
+                        "name": "expiry_time",
+                        "rmType": "DV_DATE_TIME",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-INSTRUCTION.medication_order.v2]/expiry_time",
+                        "inputs": [
+                            {
+                                "type": "DATETIME"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "composer",
+                "name": "composer",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/composer",
+                "inputs": [
+                    {
+                        "suffix": "id",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "id_scheme",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "id_namespace",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "name",
+                        "type": "TEXT"
+                    }
+                ],
+                "inContext": true
+            },
+            {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/language",
+                "inContext": true
+            },
+            {
+                "id": "territory",
+                "name": "territory",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/territory",
+                "inContext": true
+            }
+        ]
+    }
+}
